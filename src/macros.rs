@@ -130,7 +130,7 @@ macro_rules! implement_into_ffi_by_protobuf {
 /// Implement IntoFfi for a type by converting through another type.
 ///
 /// The argument `$MidTy` argument must implement `From<$SrcTy>` and
-/// [`InfoFfi`].
+/// [`InfoFfi`][crate::IntoFfi].
 ///
 /// This is provided (even though it's trivial) because it is always safe (well,
 /// so long as `$MidTy`'s [`IntoFfi`] implementation is correct), but would
