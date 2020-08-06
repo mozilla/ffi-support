@@ -8,6 +8,7 @@ workflows:
       - Run tests:
           matrix:
             parameters:
+              # 1.43.0 is our MSRV at the moment.
               image-tag: ["1.43.0", "latest"]
 
   format:
@@ -29,6 +30,10 @@ workflows:
   cross-test:
     jobs:
       - Cross Test
+
+  asan-test:
+    jobs:
+      - Test under asan
 
 jobs:
   Run tests:
@@ -139,3 +144,21 @@ jobs:
       - run:
           name: Test android x86_32
           command: cross test --target=i686-linux-android
+
+  Test under asan:
+    docker:
+      - image: circleci/rust:latest
+    steps:
+      - checkout
+      - run: rustup toolchain add nightly
+      - run: rustup default nightly
+      - run: rustup component add rust-src
+      - run: rustc -Vv
+      - run:
+          name: Test under address-sanitizer
+          command: |
+            export RUSTFLAGS="-Zsanitizer=address"
+            export RUSTDOCFLAGS="-Zsanitizer=address"
+            export ASAN_OPTIONS="detect_stack_use_after_return=1"
+            export RUST_BACKTRACE=0
+            cargo -Z build-std test --target=x86_64-unknown-linux-gnu --all-features
