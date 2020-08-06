@@ -52,8 +52,7 @@ jobs:
       - checkout
       - run: rustup component add rustfmt
       - run: cargo fmt -- --version
-      - run: cargo fmt --no-default-features -- --check
-      - run: cargo fmt --all-features -- --check
+      - run: cargo fmt -- --check
 
   Lint with clippy:
     docker:
