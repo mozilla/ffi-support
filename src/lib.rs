@@ -459,6 +459,17 @@ impl ByteBuffer {
     /// This will panic if the buffer length (`usize`) cannot fit into a `i64`.
     #[inline]
     pub fn from_vec(bytes: Vec<u8>) -> Self {
+        if bytes.is_empty() {
+            // Special case when dealing with Golang
+            // 
+            // When copying stacks, Go checks for pointer validity and chokes when `bytes` is empty
+            // (see https://github.com/golang/go/blob/0d0193409492b96881be6407ad50123e3557fdfb/src/runtime/stack.go#L619)
+            //
+            // An empty Vec has no allocation and its pointer points to a dangling value (std::ptr::Unique::dangling())
+            // which may not be 0 and therefor invalid for Go.
+            return Self { data: std::ptr::null_mut(), len: 0 };
+        }
+
         use std::convert::TryFrom;
         let mut buf = bytes.into_boxed_slice();
         let data = buf.as_mut_ptr();
