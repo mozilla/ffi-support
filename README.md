@@ -2,9 +2,14 @@
 
 [![Docs](https://docs.rs/ffi-support/badge.svg)](https://docs.rs/ffi-support)
 
-This crate implements a support library to simplify implementing the patterns that the [mozilla/application-services](https://github.com/mozilla/application-services) repository uses for it's "Rust Component" FFI libraries, which are used to share Rust code
+This crate implements a low-level support library to simplify implementing certain FFI patterns.
+It was originally created for patterns in the [mozilla/application-services](https://github.com/mozilla/application-services)
+repository, but that repo is working on replacing all uses of this crate with
+the [mozilla/uniffi-rs](https://github.com/mozilla/uniffi-rs) project.
 
-In particular, it can assist with the following areas:
+In other words, we consider this crate soft-deprecated and replaced by [UniFFI](https://github.com/mozilla/uniffi-rs).
+
+However, if this crate proves useful to others, it can assist with the following areas:
 
 1. Avoiding throwing panics over the FFI (which is undefined behavior)
 2. Translating rust errors (and panics) into errors that the caller on the other side of the FFI is able to handle.
