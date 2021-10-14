@@ -628,12 +628,12 @@ mod test {
 
         let bb = ByteBuffer::new_with_size(0);
         assert_eq!(bb.as_slice(), &[]);
-        assert!(!bb.data.is_null());
+        assert!(bb.data.is_null());
         bb.destroy();
 
         let bb = ByteBuffer::from_vec(vec![]);
         assert_eq!(bb.as_slice(), &[]);
-        assert!(!bb.data.is_null());
+        assert!(bb.data.is_null());
         bb.destroy();
     }
 }
