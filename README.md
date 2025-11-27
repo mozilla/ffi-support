@@ -2,14 +2,16 @@
 
 [![Docs](https://docs.rs/ffi-support/badge.svg)](https://docs.rs/ffi-support)
 
+This crate is deprecated and has been archived.
+
 This crate implements a low-level support library to simplify implementing certain FFI patterns.
 It was originally created for patterns in the [mozilla/application-services](https://github.com/mozilla/application-services)
 repository, but that repo is working on replacing all uses of this crate with
 the [mozilla/uniffi-rs](https://github.com/mozilla/uniffi-rs) project.
 
-In other words, we consider this crate soft-deprecated and replaced by [UniFFI](https://github.com/mozilla/uniffi-rs).
+In other words, we consider this crate HARD-deprecated and replaced by [UniFFI](https://github.com/mozilla/uniffi-rs).
 
-However, if this crate proves useful to others, it can assist with the following areas:
+If this crate proves useful to others, it should be forked. It can assist with the following areas:
 
 1. Avoiding throwing panics over the FFI (which is undefined behavior)
 2. Translating rust errors (and panics) into errors that the caller on the other side of the FFI is able to handle.
